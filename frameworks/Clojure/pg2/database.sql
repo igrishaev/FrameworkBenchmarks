@@ -1,9 +1,11 @@
 
 create user benchmarkdbuser with password 'benchmarkdbpass';
 
-create database tfb with owner benchmarkdbuser;
+create database hello_world with owner benchmarkdbuser;
 
-\connect tfb;
+\connect hello_world;
+
+\set role benchmarkdbuser;
 
 create table WORLD (id int primary key, randomnumber int not null);
 

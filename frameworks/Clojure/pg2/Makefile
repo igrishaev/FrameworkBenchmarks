@@ -1,6 +1,6 @@
 
 docker-build:
-	docker build --no-cache -t tfbpg2 -f hello.dockerfile .
+	docker build --no-cache -t tfbpg2 -f pg2.dockerfile .
 
 
 docker-run:

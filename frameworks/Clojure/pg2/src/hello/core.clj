@@ -10,11 +10,11 @@
   `(rand-int 9999))
 
 (def pool-spec
-  {:host "127.0.0.1"
-   :port 15432
+  {:host "127.0.0.1" #_"tfb-database"
+   :port 15432 #_5432
    :user "benchmarkdbuser"
    :password "benchmarkdbpass"
-   :database "tfb"})
+   :database "hello_world"})
 
 (def POOL
   (delay
