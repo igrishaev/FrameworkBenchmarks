@@ -9,8 +9,11 @@ docker-build:
 docker-run:
 	docker run -it --rm -p 8080:8080 ${TAG}
 
-test-db:
+verify-db:
 	cd ${ROOT} && ./tfb --mode verify --test ${PROJECT} --type db
 
 bench-db:
 	cd ${ROOT} && ./tfb --mode benchmark --test ${PROJECT} --type db
+
+bench-db-http-kit:
+	cd ${ROOT} && ./tfb --mode benchmark --test http-kit --type db
