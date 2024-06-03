@@ -3,18 +3,34 @@
   (:require
    [org.httpkit.server :as server]
    [pg.core :as pg]
+   [pg.json :as json]
    [pg.pool :as pool]))
 
 
 (defmacro rand-id []
   `(rand-int 9999))
 
-(def pool-spec
-  {:host "127.0.0.1" #_"tfb-database"
-   :port 15432 #_5432
-   :user "benchmarkdbuser"
+(def pool-common
+  {:user "benchmarkdbuser"
    :password "benchmarkdbpass"
-   :database "hello_world"})
+   :database "hello_world"
+   :pool-min-size 256
+   :pool-max-size 1024})
+
+(def pool-local
+  (merge pool-common
+         {:host "127.0.0.1"
+          :port 15432}))
+
+(def pool-docker
+  (merge pool-common
+         {:host "tfb-database"
+          :port 5432}))
+
+(def pool-spec
+  pool-docker
+  ;; pool-local
+  )
 
 (def POOL
   (delay
@@ -22,11 +38,14 @@
 
 
 (defn handler-db [request]
-  (let [result
+  (let [row
         (pool/with-connection [conn @POOL]
-          (pg/execute conn "select id, randomnumber from WORLD where id = $1" {:params [(rand-id)]}))]
+          (pg/execute conn "select id, randomnumber from WORLD where id = $1"
+                      {:params [(rand-id)]
+                       :first? true}))]
     {:status 200
-     :body (str result)}))
+     :headers {"content-type" "application/json"}
+     :body (json/write-string row)}))
 
 
 (defn handler-not-found [request]
