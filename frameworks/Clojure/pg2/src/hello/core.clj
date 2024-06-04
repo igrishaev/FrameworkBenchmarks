@@ -14,8 +14,8 @@
   {:user "benchmarkdbuser"
    :password "benchmarkdbpass"
    :database "hello_world"
-   :pool-min-size 256
-   :pool-max-size 1024})
+   :pool-min-size 8
+   :pool-max-size 32})
 
 (def pool-local
   (merge pool-common

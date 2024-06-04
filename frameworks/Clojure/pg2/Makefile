@@ -17,3 +17,16 @@ bench-db:
 
 bench-db-http-kit:
 	cd ${ROOT} && ./tfb --mode benchmark --test http-kit --type db
+
+bench-db-aleph:
+	cd ${ROOT} && ./tfb --mode benchmark --test aleph --type db
+
+bench-db-vertx-postgres:
+	cd ${ROOT} && ./tfb --mode benchmark --test vertx-postgres --type db
+
+bench-db-reitit-async:
+	cd ${ROOT} && ./tfb --mode benchmark --test reitit-async --type db
+
+
+list-tests:
+	cd ${ROOT} && ./tfb --list-tests
