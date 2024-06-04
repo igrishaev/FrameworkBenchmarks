@@ -13,7 +13,10 @@
   :dependencies
   [[org.clojure/clojure "1.11.1"]
    [http-kit "2.8.0"]
-   [com.github.igrishaev/pg2-core "0.1.13-20240604.143211-4"]]
+   [com.github.igrishaev/pg2-core
+
+    #_"0.1.13-20240604.143211-4"
+    "0.1.13-20240604.153136-5"]]
 
   :main
   ^:skip-aot hello.core

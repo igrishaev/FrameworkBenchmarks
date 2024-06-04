@@ -14,8 +14,8 @@
   {:user "benchmarkdbuser"
    :password "benchmarkdbpass"
    :database "hello_world"
-   :pool-min-size 8
-   :pool-max-size 32})
+   :pool-min-size 128
+   :pool-max-size 1024})
 
 (def pool-local
   (merge pool-common
@@ -40,6 +40,8 @@
 (defn handler-db [request]
   (let [row
         (pool/with-connection [conn @POOL]
+          (pg/query conn (str "select id, randomnumber from WORLD where id = " (rand-id)))
+          #_
           (pg/execute conn "select id, randomnumber from WORLD where id = $1"
                       {:params [(rand-id)]
                        :first? true}))]
